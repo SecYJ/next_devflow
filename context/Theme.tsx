@@ -1,11 +1,11 @@
-import { ThemeProvider, ThemeProviderProps } from "next-themes";
+"use client";
+import {
+    ThemeProvider as NextThemeProvider,
+    ThemeProviderProps,
+} from "next-themes";
 
-const Theme = ({ children, ...props }: ThemeProviderProps) => {
-    return (
-        <ThemeProvider {...props} enableSystem>
-            {children}
-        </ThemeProvider>
-    );
+const ThemeProvider = ({ children, ...props }: ThemeProviderProps) => {
+    return <NextThemeProvider {...props}>{children}</NextThemeProvider>;
 };
 
-export default Theme;
+export default ThemeProvider;

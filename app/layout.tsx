@@ -1,5 +1,9 @@
-import Theme from "@/context/Theme";
+import { auth } from "@/auth";
+import Navbar from "@/components/navigation";
+import { Toaster } from "@/components/ui/toaster";
+import ThemeProvider from "@/context/Theme";
 import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -24,18 +28,33 @@ export const metadata: Metadata = {
     },
 };
 
-export default function RootLayout({
+const RootLayout = async ({
     children,
 }: Readonly<{
     children: React.ReactNode;
-}>) {
+}>) => {
+    const session = await auth();
+
     return (
         <html lang="en" suppressHydrationWarning>
-            <body
-                className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
-            >
-                <Theme>{children}</Theme>
-            </body>
+            <SessionProvider session={session}>
+                <body
+                    className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
+                >
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        enableSystem
+                        disableTransitionOnChange
+                    >
+                        <Navbar />
+                        {children}
+                    </ThemeProvider>
+                    <Toaster />
+                </body>
+            </SessionProvider>
         </html>
     );
-}
+};
+
+export default RootLayout;

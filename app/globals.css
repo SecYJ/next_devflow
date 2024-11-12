@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    :root {
+        --radius: 0.5rem;
+    }
+}
+
 @layer utilities {
     .background-light850_dark100 {
         @apply dark:bg-dark-100 bg-light-850;
