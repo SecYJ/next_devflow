@@ -7,8 +7,6 @@ const Home = async () => {
 
     if (!session) return null;
 
-    console.log("session", session);
-
     return (
         <div className="pt-32">
             <p className="text-red-600">
