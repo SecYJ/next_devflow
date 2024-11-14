@@ -17,7 +17,7 @@ const NavLinks = ({ isMobileNav }: Props) => {
     const userId = 1;
 
     return (
-        <ul className="space-y-3.5">
+        <ul className="space-y-3.5 sm:space-y-6">
             {NAVIGATIONS.map((item) => {
                 const isActive = pathname === item.href;
 
@@ -28,12 +28,11 @@ const NavLinks = ({ isMobileNav }: Props) => {
 
                     if (!userId) return null;
                 }
-                // TODO: should close the menu if it's mobile
 
                 const linkComponent = (
                     <Link
                         className={cn(
-                            "flex items-center gap-4 rounded-lg p-4 font-semibold text-dark-300 dark:text-white",
+                            "flex items-center gap-4 rounded-lg p-4 font-semibold text-dark-300 dark:text-white sm:inline-block lg:flex",
                             isActive && "primary-gradient text-white",
                         )}
                         href={href}
@@ -48,7 +47,7 @@ const NavLinks = ({ isMobileNav }: Props) => {
                             width={24}
                             height={24}
                         />
-                        <span>{item.label}</span>
+                        <span className="sm:hidden lg:block">{item.label}</span>
                     </Link>
                 );
                 return (
