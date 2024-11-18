@@ -5,7 +5,11 @@ export const ROUTES = {
     COMMUNITY: "/community",
     COLLECTION: "/collection",
     JOBS: "/jobs",
-    TAGS: "/tags",
-    PROFILE: "/profile",
     QUESTION: "/ask-question",
+    PROFILE(id: string) {
+        return `/question/${id}`;
+    },
+    TAGS(id: string) {
+        return `/tags/${id}`;
+    },
 };

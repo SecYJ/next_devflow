@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-import Navbar from "@/components/navigation/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import ThemeProvider from "@/context/Theme";
 import type { Metadata } from "next";
@@ -37,6 +36,13 @@ const RootLayout = async ({
 
     return (
         <html lang="en" suppressHydrationWarning>
+            <head>
+                <link
+                    rel="stylesheet"
+                    type="text/css"
+                    href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+                />
+            </head>
             <SessionProvider session={session}>
                 <body
                     className={`${inter.className} ${spaceGrotesk.variable} antialiased`}

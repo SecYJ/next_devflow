@@ -10,7 +10,7 @@
 
 @layer utilities {
     .background-light850_dark100 {
-        @apply dark:bg-dark-100 bg-light-850;
+        @apply bg-light-850 dark:bg-black;
     }
 
     .background-light900_dark200 {
@@ -54,7 +54,7 @@
     }
 
     .text-dark100_light900 {
-        @apply text-dark-100 dark:text-light-900 !important;
+        @apply dark:text-light-900 text-black !important;
     }
 
     .text-dark200_light900 {
@@ -206,7 +206,7 @@
     }
 
     .shadow-light100_dark100 {
-        @apply shadow-light-100 dark:shadow-dark-100;
+        @apply shadow-light-100 dark:shadow-black;
     }
 
     .shadow-light100_darknone {
@@ -253,7 +253,7 @@
     }
 
     .card-wrapper {
-        @apply bg-light-900 dark:dark-gradient shadow-light-100 dark:shadow-dark-100;
+        @apply bg-light-900 dark:dark-gradient shadow-light-100 dark:shadow-black;
     }
 
     .btn {

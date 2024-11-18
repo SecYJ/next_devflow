@@ -5,7 +5,7 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import NavLinks from "./NavLinks";
 
 const DesktopNavigation = () => {
@@ -19,7 +19,7 @@ const DesktopNavigation = () => {
     };
 
     return (
-        <aside className="shadow-light100_dark100 fixed bottom-0 left-0 top-[101px] grid grid-rows-[1fr_auto] gap-[72px] border-r border-[#C8CBD954] bg-white px-6 py-12 dark:bg-dark-200 lg:w-full lg:max-w-[266px]">
+        <aside className="shadow-light100_dark100 sticky bottom-0 left-0 top-0 grid h-screen grid-rows-[1fr_auto] gap-[72px] overflow-y-auto border-r border-[#C8CBD954] bg-white px-6 py-12 pt-36 dark:bg-dark-200">
             <NavLinks />
 
             {session ? (

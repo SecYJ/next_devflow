@@ -21,19 +21,19 @@ export const NAVIGATIONS = [
         icon: "/icons/suitcase.svg",
         href: ROUTES.JOBS,
     },
-    {
-        label: "Tags",
-        icon: "/icons/tag.svg",
-        href: ROUTES.TAGS,
-    },
-    {
-        label: "Profile",
-        icon: "/icons/user.svg",
-        href: ROUTES.PROFILE,
-    },
-    {
-        label: "Ask Question",
-        icon: "/icons/question.svg",
-        href: ROUTES.QUESTION,
-    },
+    // {
+    //     label: "Tags",
+    //     icon: "/icons/tag.svg",
+    //     href: ROUTES.TAGS,
+    // },
+    // {
+    //     label: "Profile",
+    //     icon: "/icons/user.svg",
+    //     href: ROUTES.PROFILE,
+    // },
+    // {
+    //     label: "Ask Question",
+    //     icon: "/icons/question.svg",
+    //     href: ROUTES.QUESTION,
+    // },
 ];
