@@ -1,7 +1,6 @@
 import LeftSidebar from "@/components/navigation/LeftSidebar";
 import Navbar from "@/components/navigation/navbar/Navbar";
 import RightSidebar from "@/components/navigation/RightSidebar";
-import Head from "next/head";
 import { PropsWithChildren } from "react";
 
 const PageLayout = ({ children }: PropsWithChildren) => (
