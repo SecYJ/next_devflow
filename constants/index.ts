@@ -31,9 +31,9 @@ export const NAVIGATIONS = [
     //     icon: "/icons/user.svg",
     //     href: ROUTES.PROFILE,
     // },
-    // {
-    //     label: "Ask Question",
-    //     icon: "/icons/question.svg",
-    //     href: ROUTES.QUESTION,
-    // },
+    {
+        label: "Ask Question",
+        icon: "/icons/question.svg",
+        href: ROUTES.ASK_QUESTION,
+    },
 ];
