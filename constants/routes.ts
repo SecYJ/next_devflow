@@ -12,4 +12,7 @@ export const ROUTES = {
     TAGS(id: string) {
         return `/tags/${id}`;
     },
+    QUESTIONS(questionId: string) {
+        return `/question/${questionId}`;
+    },
 };

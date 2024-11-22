@@ -1,18 +1,19 @@
+import { ROUTES } from "@/constants/routes";
 import { cn, getDeviconClassName } from "@/lib/utils";
 import Link from "next/link";
 import { badgeVariants } from "../ui/badge";
-import Image from "next/image";
-import { ROUTES } from "@/constants/routes";
 
 interface Props {
     _id: string;
-    iconUrl: string;
-    count: number;
+    name: string;
+    count?: number;
     topic: string;
+    compact?: boolean;
+    question?: number;
 }
 
-const TagCard = ({ _id, iconUrl, count, topic }: Props) => {
-    const icon = getDeviconClassName(iconUrl);
+const TagCard = ({ _id, name, count, topic }: Props) => {
+    const icon = getDeviconClassName(name);
 
     return (
         <div className="flex items-center justify-between">

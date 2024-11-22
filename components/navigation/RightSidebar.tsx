@@ -54,7 +54,7 @@ const RightSidebar = () => {
                             key={tag._id}
                             _id={tag._id}
                             count={tag.questions}
-                            iconUrl={tag.name}
+                            name={tag.name}
                             topic={tag.name}
                         />
                     ))}
