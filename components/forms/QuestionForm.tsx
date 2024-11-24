@@ -1,6 +1,23 @@
 "use client";
 
+import { askQuestionSchema } from "@/lib/validations";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+    BoldItalicUnderlineToggles,
+    CreateLink,
+    headingsPlugin,
+    InsertImage,
+    listsPlugin,
+    ListsToggle,
+    MDXEditorMethods,
+    quotePlugin,
+    toolbarPlugin,
+} from "@mdxeditor/editor";
+import dynamic from "next/dynamic";
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "../ui/button";
 import {
     Form,
     FormControl,
@@ -9,15 +26,17 @@ import {
     FormItem,
     FormLabel,
 } from "../ui/form";
-import { z } from "zod";
-import { askQuestionSchema } from "@/lib/validations";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 type FormValues = z.infer<typeof askQuestionSchema>;
 
+const Editor = dynamic(() => import("../editors"), {
+    // Make sure we turn SSR off
+    ssr: false,
+});
+
 const QuestionForm = () => {
+    const ref = useRef<MDXEditorMethods>(null);
     const form = useForm<FormValues>({
         resolver: zodResolver(askQuestionSchema),
         defaultValues: {
@@ -61,7 +80,11 @@ const QuestionForm = () => {
                                 Detailed explanation of your problem?
                             </FormLabel>
                             <FormControl>
-                                <Input {...field} className="min-h-14" />
+                                <Editor
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                    ref={ref}
+                                />
                             </FormControl>
                             <FormDescription className="text-sm text-light-500">
                                 Be specific and imagine you're asking a question
@@ -89,9 +112,14 @@ const QuestionForm = () => {
                     )}
                 />
 
-                <Button type="submit" className="primary-gradient !text-white">
-                    Ask a Question
-                </Button>
+                <div className="flex justify-end">
+                    <Button
+                        type="submit"
+                        className="primary-gradient !text-white"
+                    >
+                        Ask a Question
+                    </Button>
+                </div>
             </form>
         </Form>
     );
