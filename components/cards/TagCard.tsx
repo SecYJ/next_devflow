@@ -1,37 +1,84 @@
-import { ROUTES } from "@/constants/routes";
-import { cn, getDeviconClassName } from "@/lib/utils";
+import Image from "next/image";
 import Link from "next/link";
-import { badgeVariants } from "../ui/badge";
+import React from "react";
+
+import { ROUTES } from "@/constants/routes";
+import { getDeviconClassName } from "@/lib/utils";
+
+import { Badge } from "../ui/badge";
 
 interface Props {
     _id: string;
     name: string;
-    count?: number;
-    topic: string;
+    questions?: number;
+    showCount?: boolean;
     compact?: boolean;
-    question?: number;
+    remove?: boolean;
+    isButton?: boolean;
+    handleRemove?: () => void;
 }
 
-const TagCard = ({ _id, name, count, topic }: Props) => {
-    const icon = getDeviconClassName(name);
+const TagCard = ({
+    _id,
+    name,
+    questions,
+    showCount,
+    compact,
+    remove,
+    isButton,
+    handleRemove,
+}: Props) => {
+    const iconClass = getDeviconClassName(name);
 
-    return (
-        <div className="flex items-center justify-between">
-            <Link
-                className={cn(
-                    badgeVariants({ variant: "outline" }),
-                    "flex items-center gap-1 bg-light-800 px-4 py-2 font-medium dark:bg-dark-300",
+    const handleClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+    };
+
+    const Content = (
+        <>
+            <Badge className="subtle-medium background-light800_dark300 text-light400_light500 flex flex-row gap-2 rounded-md border-none px-4 py-2 uppercase">
+                <div className="flex-center space-x-2">
+                    <i className={`${iconClass} text-sm`}></i>
+                    <span>{name}</span>
+                </div>
+
+                {remove && (
+                    <Image
+                        src="/icons/close.svg"
+                        width={12}
+                        height={12}
+                        alt="close icon"
+                        className="cursor-pointer object-contain invert-0 dark:invert"
+                        onClick={handleRemove}
+                    />
                 )}
-                href={ROUTES.TAGS(_id)}
-            >
-                <i className={icon} />
-                <span>{topic}</span>
-            </Link>
-            <p className="text-sm font-medium text-dark-500 dark:text-light-700">
-                {count}
-            </p>
-        </div>
+            </Badge>
+
+            {showCount && (
+                <p className="small-medium text-dark500_light700">
+                    {questions}
+                </p>
+            )}
+        </>
     );
+
+    if (compact) {
+        return isButton ? (
+            <button
+                onClick={handleClick}
+                className="flex justify-between gap-2"
+            >
+                {Content}
+            </button>
+        ) : (
+            <Link
+                href={ROUTES.TAGS(_id)}
+                className="flex justify-between gap-2"
+            >
+                {Content}
+            </Link>
+        );
+    }
 };
 
 export default TagCard;

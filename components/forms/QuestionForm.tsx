@@ -14,8 +14,8 @@ import {
     toolbarPlugin,
 } from "@mdxeditor/editor";
 import dynamic from "next/dynamic";
-import { useRef } from "react";
-import { useForm } from "react-hook-form";
+import { ChangeEvent, KeyboardEvent, useRef } from "react";
+import { ControllerRenderProps, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import {
@@ -27,6 +27,7 @@ import {
     FormLabel,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import TagCard from "../cards/TagCard";
 
 type FormValues = z.infer<typeof askQuestionSchema>;
 
@@ -45,6 +46,30 @@ const QuestionForm = () => {
             tags: [],
         },
     });
+
+    const handleTagChange = (
+        e: KeyboardEvent<HTMLInputElement>,
+        field: string[],
+    ) => {
+        console.log("key", e.currentTarget.value);
+        if (e.key !== "Enter") return;
+        if (!e.currentTarget.value) {
+            form.setError("tags", {
+                message: "Tag is required",
+            });
+            return;
+        }
+        if (field.includes(e.currentTarget.value)) {
+            form.setError("tags", {
+                message: "Tag already exists",
+            });
+        }
+        e.preventDefault();
+        form.setValue("tags", [...field, e.currentTarget.value]);
+        e.currentTarget.value = "";
+    };
+
+    console.log("tags", form.getValues("tags"));
 
     const onSubmit = (data: FormValues) => {
         console.log("data", data);
@@ -102,7 +127,36 @@ const QuestionForm = () => {
                                 Tags
                             </FormLabel>
                             <FormControl>
-                                <Input {...field} className="min-h-14" />
+                                <div>
+                                    <Input
+                                        onKeyDown={(e) =>
+                                            handleTagChange(e, field.value)
+                                        }
+                                        className="min-h-14"
+                                    />
+                                    <div className="flex-start mt-2.5 flex-wrap gap-2.5">
+                                        {form.watch("tags").map((tag) => (
+                                            <TagCard
+                                                key={tag}
+                                                _id={tag}
+                                                name={tag}
+                                                compact
+                                                remove
+                                                isButton
+                                                handleRemove={() => {
+                                                    console.log("clicked");
+
+                                                    form.setValue(
+                                                        "tags",
+                                                        field.value.filter(
+                                                            (t) => t !== tag,
+                                                        ),
+                                                    );
+                                                }}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
                             </FormControl>
                             <FormDescription className="text-sm text-light-500">
                                 Add up to 3tags to describe what your question
