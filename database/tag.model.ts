@@ -1,9 +1,11 @@
-import { model, models, Schema, Types } from "mongoose";
+import { model, Document, models, Schema } from "mongoose";
 
-interface ITag {
+export interface ITag {
     question: number;
     name: string;
 }
+
+export interface ITagDoc extends ITag, Document {}
 
 const tagSchema = new Schema<ITag>(
     {

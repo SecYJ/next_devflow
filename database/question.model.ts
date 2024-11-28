@@ -1,6 +1,6 @@
-import { model, models, Schema, Types } from "mongoose";
+import { Document, model, models, Schema, Types } from "mongoose";
 
-interface IQuestion {
+export interface IQuestion {
     author: Types.ObjectId;
     title: string;
     content: string;
@@ -10,6 +10,8 @@ interface IQuestion {
     tags: Types.ObjectId[];
     views: number;
 }
+
+export interface IQuestionDoc extends IQuestion, Document {}
 
 const questionSchema = new Schema<IQuestion>(
     {
@@ -23,7 +25,7 @@ const questionSchema = new Schema<IQuestion>(
         upvotes: { type: Number, default: 0 },
         downvotes: { type: Number, default: 0 },
         answers: { type: Number, default: 0 },
-        tags: [{ type: Schema.Types.ObjectId, ref: "Tag", required: true }],
+        tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
         views: { type: Number, default: 0 },
     },
     { timestamps: true },
