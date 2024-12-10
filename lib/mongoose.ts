@@ -1,5 +1,6 @@
 import mongoose, { Mongoose } from "mongoose";
 
+import logger from "./logger";
 const MONGODB_URI = process.env.MONGODB_URI as string;
 
 if (!MONGODB_URI) {
@@ -12,6 +13,7 @@ interface MongooseCache {
 }
 
 declare global {
+    // eslint-disable-next-line no-var
     var mongoose: MongooseCache;
 }
 
@@ -21,8 +23,9 @@ if (!cached) {
     cached = global.mongoose = { conn: null, promise: null };
 }
 
-const dbConnect = async () => {
+const dbConnect = async (): Promise<Mongoose> => {
     if (cached.conn) {
+        logger.info("Using existing mongoose connection");
         return cached.conn;
     }
 
@@ -32,16 +35,20 @@ const dbConnect = async () => {
                 dbName: "devflow",
             })
             .then((result) => {
-                console.log("connected to mongoDb");
-
+                console.log("Connected to MongoDB");
+                logger.info("Connected to MongoDB");
                 return result;
             })
             .catch((error) => {
-                console.error("Error connecting to MongoDb", error);
+                console.error("Error connecting to MongoDB", error);
+                logger.error("Error connecting to MongoDB", error);
                 throw error;
             });
     }
 
     cached.conn = await cached.promise;
+
     return cached.conn;
 };
+
+export default dbConnect;

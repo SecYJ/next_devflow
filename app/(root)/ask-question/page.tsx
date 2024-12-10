@@ -1,4 +1,10 @@
 import QuestionForm from "@/components/forms/QuestionForm";
+import { ValidationError } from "@/lib/http-errors";
+
+// const testString = {
+//     username: ["Invalid username", "Username already exists", "testing123"],
+//     email: ["Invalid email", "Email already exists", "testing123"],
+// };
 
 const AskQuestionPage = () => {
     return (
